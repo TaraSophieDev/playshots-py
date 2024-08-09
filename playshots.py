@@ -17,13 +17,16 @@ imported_date = time.time()
 
 def get_path():
     global path
-    path = input("Enter Path: ") + "/"
+    path = input("Enter Path: ")
+    if not path.endswith('/'):
+        path += '/'
     global game_list
     game_list = input("Enter Game List JSON: ")
-    with open(game_list, 'r') as f:
-        json_str = f.read()
-    global game_list_dict
-    game_list_dict = json.loads(json_str)
+    if game_list != '':
+        with open(game_list, 'r') as f:
+            json_str = f.read()
+        global game_list_dict
+        game_list_dict = json.loads(json_str)
     display_files_in_path(path)
 
 
