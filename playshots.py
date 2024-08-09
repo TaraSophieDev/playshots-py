@@ -5,13 +5,14 @@ import datetime
 from shutil import copy
 import json
 
-
 images = []
 videos = []
 path = ''
 game_list = ''
 game_list_dict = {}
 subdirectory_paths = []
+
+imported_date = time.time()
 
 
 def get_path():
@@ -47,6 +48,7 @@ def check_entries():
         else:
             copy_files(video)
 
+
 def copy_files(file_path):
     file_path_old = file_path.split('-')[-1]
     id_name = os.path.splitext(file_path_old)[0]
@@ -66,8 +68,8 @@ def copy_files(file_path):
 
 def copy_old_format_files(file_path):
     directory = 'Unknown'
-    new_path = os.path.join(path, directory)#path + directory
-    #add_subdirectory_path_to_array(new_path)
+    new_path = os.path.join(path, directory)
+    add_subdirectory_path_to_array(new_path)
     if not os.path.exists(new_path):
         os.makedirs(new_path, exist_ok=True)
 
@@ -94,52 +96,48 @@ def create_json():
             file_name_without_extension = os.path.splitext(file_path)[0]
             file = file_name_without_extension.split('/')[-1]
 
-
             file_id = file_name_without_extension.split('-')[-1]
             created_time = file.split('-')[0]
             formated_create_time = convert_to_datetime(created_time)
 
-
-            print(check_game_list(file_id))
-            #TODO: create import date variable out of loop so it doesn't need to call every for loop
             json_dict = {
                 'id': file_id,
                 'fileName': file,
                 'type': 'image',
                 'game': check_game_list(file_id),
-                'importDate': time.time(),
-                'takenDate': formated_create_time,
-                }
-
-            json_object = json.dumps(json_dict, indent=4)
-            with open(file_name_without_extension + '.json', 'w') as outfile:
-                outfile.write(json_object)
-            print("file " + file_name_without_extension)
-
-        for file_path in glob.glob(path + '/' + '*.mp4'):
-            file = file_path.split('/')[-1]
-            file_name_without_extension = os.path.splitext(file)[0]
-
-            #file_id = file_name_without_extension.split('-')[-1]
-            created_time = file.split('-')[0]
-            formated_create_time = convert_to_datetime(created_time)
-
-            json_dict = {
-                'id': "null",
-                'fileName': file,
-                'type': 'image',
-                'game': "null",
-                'importDate': time.time(),
+                'importDate': imported_date,
                 'takenDate': formated_create_time,
             }
 
             json_object = json.dumps(json_dict, indent=4)
             with open(file_name_without_extension + '.json', 'w') as outfile:
                 outfile.write(json_object)
-            print("file " + file_name_without_extension)
+
+        for file_path in glob.glob(path + '/' + '*.mp4'):
+            file_name_without_extension = os.path.splitext(file_path)[0]
+            file = file_name_without_extension.split('/')[-1]
+
+            file_id = file_name_without_extension.split('-')[-1]
+            created_time = file.split('-')[0]
+            formated_create_time = convert_to_datetime(created_time)
+
+            json_dict = {
+                'id': file_id,
+                'fileName': file,
+                'type': 'video',
+                'game': "null",
+                'importDate': imported_date,
+                'takenDate': formated_create_time,
+            }
+
+            json_object = json.dumps(json_dict, indent=4)
+            with open(file_name_without_extension + '.json', 'w') as outfile:
+                outfile.write(json_object)
+
 
 def convert_to_datetime(time):
-    return datetime.datetime(int(time[:4]), int(time[4:6]), int(time[6:8]), int(time[8:10]), int(time[10:12]), int(time[12:14]), int(time[14:16])).timestamp()
+    return datetime.datetime(int(time[:4]), int(time[4:6]), int(time[6:8]), int(time[8:10]), int(time[10:12]),
+                             int(time[12:14]), int(time[14:16])).timestamp()
 
 
 def check_game_list(game_id):
@@ -149,11 +147,11 @@ def check_game_list(game_id):
     else:
         return "null"
 
+
 def main():
     get_path()
     time.sleep(0.5)
     create_json()
-
 
 
 if __name__ == '__main__':
