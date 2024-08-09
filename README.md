@@ -26,7 +26,7 @@
         ```
 
 ## Usage
-- You need python3 to be installed, I developed this on Pythno 3.12, but it should work with older versions of Python 3.
+- You need python3 to be installed, I developed this on Python 3.12, but it should work with older versions of Python 3.
 - To run the tool you have to use the terminal/command line
 - To start Playshots you need to run the following command: ``python3 playshots.py``
 1. The tool will ask for a path to the folder that contains the media files.
