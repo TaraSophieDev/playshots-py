@@ -26,9 +26,10 @@
         ```
 
 ## Usage
-- You need python3 to be installed, I developed this on Python 3.12, but it should work with older versions of Python 3.
-- To run the tool you have to use the terminal/command line
-- To start Playshots you need to run the following command: ``python3 playshots.py``
+* You need python3 to be installed, I developed this on Python 3.12, but it should work with older versions of Python 3.
+    * If you don't have Python3 installed you can download it from this [site](https://www.python.org/downloads/)
+* To run the tool you have to use the terminal/command line
+* To start Playshots you need to run the following command: ``python3 playshots.py``
 1. The tool will ask for a path to the folder that contains the media files.
 2. It will then ask if you want to use the json file that contains the game names. This is not needed to run this tool.
 
