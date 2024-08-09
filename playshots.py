@@ -156,6 +156,7 @@ def main():
     time.sleep(0.5)
     create_json()
 
+# TODO: Add way to specify the output path for the copied files
 
 if __name__ == '__main__':
     main()
