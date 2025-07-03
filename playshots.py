@@ -128,7 +128,7 @@ def create_json():
                 'id': file_id,
                 'fileName': file,
                 'type': 'video',
-                'game': "null",
+                'game': check_game_list(file_id),
                 'importDate': imported_date,
                 'takenDate': formated_create_time,
             }
